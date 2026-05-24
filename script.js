@@ -1,59 +1,59 @@
-var elementoResultado = document.getElementById('resultado-senha');
-var elementoTamanho = document.getElementById('tamanho-senha');
-var elementoMaiusculas = document.getElementById('maiusculas');
-var elementoMinusculas = document.getElementById('minusculas');
-var elementoNumeros = document.getElementById('numeros');
-var elementoSimbolos = document.getElementById('simbolos');
-var botaoGerar = document.getElementById('botao-gerar');
-var botaoCopiar = document.getElementById('botao-copiar');
-var barraForca = document.getElementById('barra-forca');
-var textoForca = document.getElementById('texto-forca');
+var resultPassword = document.getElementById('password-result');
+var passwordLength = document.getElementById('password-length');
+var uppercaseCheckbox = document.getElementById('uppercase');
+var lowercaseCheckbox = document.getElementById('lowercase');
+var numbersCheckbox = document.getElementById('numbers');
+var symbolsCheckbox = document.getElementById('symbols');
+var generateBtn = document.getElementById('generate-btn');
+var copyBtn = document.getElementById('copy-btn');
+var strengthBar = document.getElementById('strength-bar');
+var strengthText = document.getElementById('strength-text');
 
-function resultado() {
-    var senha = elementoResultado.innerHTML;
+function copyResult() {
+    var password = resultPassword.innerHTML;
     
-    if (senha !== 'SuaSenhaAqui' && senha !== 'Selecione uma opção!') {
-        navigator.clipboard.writeText(senha);
+    if (password !== 'SuaSenhaAqui' && password !== 'Selecione uma opção!') {
+        navigator.clipboard.writeText(password);
         alert('Senha copiada com sucesso!');
     }
 }
 
-function gerarSenha(tamanho, temMaiusculas, temMinusculas, temNumeros, temSimbolos) {
-    var caracteres = "",
-        senhaFinal = "";
-    if (temMaiusculas) {
-        caracteres += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+function generatePassword(length, hasUppercase, hasLowercase, hasNumbers, hasSymbols) {
+    var characters = "",
+        finalPassword = "";
+    if (hasUppercase) {
+        characters += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     }; 
-    if (temMinusculas) {
-        caracteres += "abcdefghijklmnopqrstuvwxyz";
+    if (hasLowercase) {
+        characters += "abcdefghijklmnopqrstuvwxyz";
     };
-    if (temNumeros) {
-        caracteres += "0123456789";
+    if (hasNumbers) {
+        characters += "0123456789";
     };    
-    if (temSimbolos) {
-        caracteres += "!@#$%^&*()_+~|}{[]:;?><,./-="; 
+    if (hasSymbols) {
+        characters += "!@#$%^&*()_+~|}{[]:;?><,./-="; 
     };       
-    if (caracteres === "") {
+    if (characters === "") {
         return "Selecione uma opção!";
     }
-    for (var i = 0, n = caracteres.length; i < tamanho; ++i) {
-        senhaFinal += caracteres.charAt(Math.floor(Math.random() * n));
+    for (var i = 0, n = characters.length; i < length; ++i) {
+        finalPassword += characters.charAt(Math.floor(Math.random() * n));
     }
-    return senhaFinal;
+    return finalPassword;
 }
 
-function escolha() {
-    var tamanho = parseInt(elementoTamanho.value);
-    var temMaiusculas = elementoMaiusculas.checked;
-    var temMinusculas = elementoMinusculas.checked;
-    var temNumeros = elementoNumeros.checked;
-    var temSimbolos = elementoSimbolos.checked;
+function handleGenerate() {
+    var length = parseInt(passwordLength.value);
+    var hasUppercase = uppercaseCheckbox.checked;
+    var hasLowercase = lowercaseCheckbox.checked;
+    var hasNumbers = numbersCheckbox.checked;
+    var hasSymbols = symbolsCheckbox.checked;
 
-    var novaSenha = gerarSenha(tamanho, temMaiusculas, temMinusculas, temNumeros, temSimbolos);
+    var newPassword = generatePassword(length, hasUppercase, hasLowercase, hasNumbers, hasSymbols);
     
-    elementoResultado.innerHTML = novaSenha;
+    resultPassword.innerHTML = newPassword;
 
     // macho aqui tu adiciona a função da barrinha pra indicar força
 }    
-botaoGerar.addEventListener('click', escolha);
-botaoCopiar.addEventListener('click', resultado);
+generateBtn.addEventListener('click', handleGenerate);
+copyBtn.addEventListener('click', copyResult);
