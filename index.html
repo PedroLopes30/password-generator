@@ -11,38 +11,38 @@
     <div class="container">
         <h2>Gerador de Senhas</h2>
         
-        <div class="container-resultado">
-            <span id="resultado-senha">SuaSenhaAqui</span>
-            <button id="botao-copiar">Copiar</button>
+        <div class="container-result">
+            <span id="password-result">SuaSenhaAqui</span>
+            <button id="copy-btn">Copiar</button>
         </div>
 
         <div>
-            <div class="fundo-da-barra-forca">
-                <div class="barra-forca" id="barra-forca"></div>
+            <div class="background-strength-bar">
+                <div id="strength-bar"></div>
             </div>
-            <div class="texto-forca" id="texto-forca">Força</div>
+            <div id="strength-text">Força</div>
         </div>
 
-        <div class="container-opcoes">
+        <div class="container-options">
             <label>
-                Tamanho da Senha: <span id="valor-tamanho"></span>
-                <input type="number" id="tamanho-senha" min="6" max="32" value="12">
+                Tamanho da Senha: <span id="value-length"></span>
+                <input type="number" id="password-length" min="6" max="32" value="12">
             </label>
             <label>
-                <input type="checkbox" id="maiusculas" checked> Incluir Letras Maiúsculas
+                <input type="checkbox" id="uppercase" checked> Incluir Letras Maiúsculas
             </label>
             <label>
-                <input type="checkbox" id="minusculas" checked> Incluir Letras Minúsculas
+                <input type="checkbox" id="lowercase" checked> Incluir Letras Minúsculas
             </label>
             <label>
-                <input type="checkbox" id="numeros" checked> Incluir Números
+                <input type="checkbox" id="numbers" checked> Incluir Números
             </label>
             <label>
-                <input type="checkbox" id="simbolos"> Incluir Caracteres Especiais
+                <input type="checkbox" id="symbols"> Incluir Caracteres Especiais
             </label>
         </div>
 
-        <button id="botao-gerar">Gerar Senha</button>
+        <button id="generate-btn">Gerar Senha</button>
     </div>
 
     <script src="script.js"></script>
