@@ -6,51 +6,71 @@
     <title>Gerador de Senhas</title>
     <link href="./src/output.css" rel="stylesheet">
 </head>
-<body>
-    <main>
-        <h2>Gerador de Senhas</h2>
-
-        <header>
-            <div id="strength-text">Escolha a Força</div>
-            <input type="range" id="strength-bar" min="1" max="3" value="2" step="1">
-        </header>
-
-        <section>
-            <div>
-                <label>Tamanho da Senha: <span id="value-length"></span></label>
-                <input type="number" id="password-length" min="6" max="32" value="12">
+<body class="bg-teal h-screen w-full flex items-center justify-center">
+    <main class="bg-beige h-9/10 w-1/2 flex flex-col items-center gap-10 p-5 rounded-md shadow-md overflow-auto">
+        <h2 class="text-3xl text-navy font-bold">Gerador de Senhas</h2>
+        
+        <section class="w-4/5 flex flex-col items-center gap-4">
+            <div class="bg-white w-full flex flex-col gap-6 text-center p-8 rounded-md border-2 border-teal shadow-md">
+                <div class="font-medium text-xl" id="strength-text">Escolha a Força</div>
+                <div>
+                    <input class="w-full" type="range" id="strength-bar" min="1" max="3" value="2" step="1">
+                    <div class="w-full flex justify-between">
+                        <span>Baixo</span>
+                        <span>Normal</span>
+                        <span>Alto</span>
+                    </div>
+                </div>
             </div>
+
+            <div class="bg-white w-full grid grid-cols-2 grid-rows-2 gap-2 p-8 rounded-md border-2 border-teal shadow-md">
+                <div class="flex items-center gap-3">
+                    <input class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" type="checkbox" id="uppercase" checked>
+                    <label>Incluir Letras Maiúsculas</label>
+                </div>
+                <div class="flex items-center gap-3">
+                    <input class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" type="checkbox" id="lowercase" checked>
+                    <label>Incluir Letras Minúsculas</label>
+                </div>
+                <div class="flex items-center gap-3">
+                    <input class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" type="checkbox" id="numbers" checked>
+                    <label>Incluir Números</label>
+                </div>
+                <div class="flex items-center gap-3">
+                    <input class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" type="checkbox" id="symbols" checked>
+                    <label>Incluir Caracteres Especiais</label>
+                </div>
+            </div>
+
             
-            <div>
-                <input type="checkbox" id="uppercase" checked>
-                <label>Incluir Letras Maiúsculas</label>
-            </div>
-
-            <div>
-                <input type="checkbox" id="lowercase" checked>
-                <label>Incluir Letras Minúsculas</label>
-            </div>
-
-            <div>
-                <input type="checkbox" id="numbers" checked>
-                <label>Incluir Números</label>
-            </div>
-
-            <div>
-                <input type="checkbox" id="symbols" checked>
-                <label>Incluir Caracteres Especiais</label>
+            <div class="bg-white w-full flex flex-col gap-4 items-center justify-center text-center p-8 rounded-md border-2 border-teal shadow-md">
+                <label class="text-xl">Tamanho da Senha: <span id="value-length"></span></label>
+                <select id="password-length" class="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700 sm:text-sm transition duration-150"
+                ></select>
+                <script>
+                    const select = document.getElementById('password-length');
+                    
+                    for (let i = 6; i <= 32; i++) {
+                        const option = document.createElement('option');
+                        option.value = i;
+                        option.textContent = i;
+                        select.appendChild(option);
+                    }
+                </script>
             </div>
         </section>
         
 
-        <button id="generate-btn">Gerar Senha</button>
+        <button class="bg-navy text-white font-bold text-2xl py-2 px-7 rounded-md shadow-md cursor-pointer transition-all ease-in hover:scale-110" id="generate-btn">Gerar Senha</button>
 
-        <div>
-            <span id="password-result">Sua Senha Aqui</span>
-            <button id="copy-btn">Copiar</button>
+        <div class="w-4/5 flex flex-col text-center items-center justify-center gap-2 p-8 rounded-md">
+            <span class="w-full bg-white rounded-md p-2 shadow-md" id="password-result">Sua Senha Aqui</span>
+            <button class="self-end bg-white border rounded-md px-2 cursor-pointer transition-all ease-in hover:bg-sky-blue hover:scale-110" id="copy-btn">Copiar</button>
         </div>
     </main>
 
     <script src="./src/script.js"></script>
+
+
 </body>
 </html>
