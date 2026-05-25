@@ -53,7 +53,7 @@ function handleGenerate() {
     
     resultPassword.innerHTML = newPassword;
 
-    // macho aqui tu adiciona a função da barrinha pra indicar força
+    
 }    
 generateBtn.addEventListener('click', handleGenerate);
 copyBtn.addEventListener('click', copyResult);
