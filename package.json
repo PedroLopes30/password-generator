@@ -1,0 +1,26 @@
+{
+  "name": "password-generator",
+  "version": "1.0.0",
+  "description": "A password generator, customized based on user preferences.",
+  "homepage": "https://github.com/PedroLopes30/password-generator#readme",
+  "bugs": {
+    "url": "https://github.com/PedroLopes30/password-generator/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PedroLopes30/password-generator.git"
+  },
+  "scripts": {
+    "tailwindcss:watch": "tailwindcss -i ./src/input.css -o ./src/output.css --watch",
+    "dev": "pm2 start http-server --name \"password-generator\" -- -p 8080 && pm2 start npm --name \"tailwind-password-generator\" -- run tailwindcss:watch",
+    "start": "pm2 start http-server --name \"password-generator\" -- -p 8080",
+    "stop": "pm2 delete password-generator tailwind-password-generator"
+  },
+
+  "dependencies": {
+    "@tailwindcss/cli": "^4.3.0",
+    "http-server": "^14.1.1",
+    "pm2": "^7.0.1",
+    "tailwindcss": "^4.3.0"
+  }
+}
