@@ -10,17 +10,19 @@ const strengthBar = document.getElementById('strength-bar');
 const strengthText = document.getElementById('strength-text');
 
 function copyResult() {
-    const password = resultPassword.innerHTML;
+    const password = resultPassword.value;
     
-    if (password !== 'Sua Senha Aqui' && password !== 'Selecione uma opção!') {
+    if (password !== "") {
         navigator.clipboard.writeText(password);
-        alert('Senha copiada com sucesso!');
+        return
     }
+
+    alert("Gere uma senha para conseguir copiar!")
 }
 
 function generatePassword(length, hasUppercase, hasLowercase, hasNumbers, hasSymbols) {
-    const characters = "";
-    const finalPassword = "";
+    let characters = "";
+    let finalPassword = "";
 
     if (hasUppercase) {
         characters += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -39,11 +41,12 @@ function generatePassword(length, hasUppercase, hasLowercase, hasNumbers, hasSym
     };   
 
     if (characters === "") {
-        return "Selecione uma opção!";
+        alert("Selecione uma opção!")
+        return ""
     }
 
-    for (let i = 0, n = characters.length; i < length; ++i) {
-        finalPassword += characters.charAt(Math.floor(Math.random() * n));
+    for (let init = 0; init < length; ++init) {
+        finalPassword += characters.charAt(Math.floor(Math.random() * characters.length));
     }
 
     return finalPassword;
@@ -57,8 +60,7 @@ function handleGenerate() {
     const hasSymbols = symbolsCheckbox.checked;
 
     const newPassword = generatePassword(length, hasUppercase, hasLowercase, hasNumbers, hasSymbols);
-    
-    resultPassword.innerHTML = newPassword;
+    resultPassword.value = newPassword
 }    
 
 generateBtn.addEventListener('click', handleGenerate);
