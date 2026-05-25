@@ -20,24 +20,40 @@ function copyResult() {
     alert("Gere uma senha para conseguir copiar!")
 }
 
-function generatePassword(length, hasUppercase, hasLowercase, hasNumbers, hasSymbols) {
+function verifyOccurrences(value, regex, occurrences) {
+    let verifyNumber = 0
+
+    for (let character in value) {
+        if (verifyNumber == occurrences) return true
+        if (regex.includes(value[character])) {
+            verifyNumber += 1
+        }
+    }
+}
+
+function generatePassword(length, hasUppercase, hasLowercase, hasNumbers, hasSymbols, strength = 2) {
+    const uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    const lowercase = "abcdefghijklmnopqrstuvwxyz"
+    const numbers = "0123456789"
+    const symbols = "!@#$%^&*()_+~|}{[]:;?><,./-="
+
     let characters = "";
     let finalPassword = "";
 
     if (hasUppercase) {
-        characters += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        characters += uppercase;
     }; 
 
     if (hasLowercase) {
-        characters += "abcdefghijklmnopqrstuvwxyz";
+        characters += lowercase;
     };
 
     if (hasNumbers) {
-        characters += "0123456789";
+        characters += numbers;
     };  
       
-    if (hasSymbols) {
-        characters += "!@#$%^&*()_+~|}{[]:;?><,./-="; 
+    if (hasSymbols) {    
+        characters += symbols; 
     };   
 
     if (characters === "") {
@@ -45,11 +61,35 @@ function generatePassword(length, hasUppercase, hasLowercase, hasNumbers, hasSym
         return ""
     }
 
-    for (let init = 0; init < length; ++init) {
-        finalPassword += characters.charAt(Math.floor(Math.random() * characters.length));
-    }
+    switch (strength) {
+        case 1:
+            for (let init = 0; init < length; ++init) {
+                if (verifyOccurrences(finalPassword, symbols, 1)) {
+                    finalPassword += characters.charAt(Math.floor(Math.random() * (characters.length - symbols.length)));
+                    continue
+                }
+                
+                finalPassword += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            
+            return finalPassword
+        case 2:
+            for (let init = 0; init < length; ++init) {
+                if (verifyOccurrences(finalPassword, symbols, 4)) {
+                    finalPassword += characters.charAt(Math.floor(Math.random() * (characters.length - symbols.length)));
+                    continue
+                }
+                finalPassword += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
 
-    return finalPassword;
+            return finalPassword
+        case 3:         
+            for (let init = 0; init < length; ++init) {
+                finalPassword += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+
+            return finalPassword
+    }
 }
 
 function handleGenerate() {
@@ -58,8 +98,9 @@ function handleGenerate() {
     const hasLowercase = lowercaseCheckbox.checked;
     const hasNumbers = numbersCheckbox.checked;
     const hasSymbols = symbolsCheckbox.checked;
-
-    const newPassword = generatePassword(length, hasUppercase, hasLowercase, hasNumbers, hasSymbols);
+    const strength = parseInt(strengthBar.value)
+    
+    const newPassword = generatePassword(length, hasUppercase, hasLowercase, hasNumbers, hasSymbols, strength);
     resultPassword.value = newPassword
 }    
 
